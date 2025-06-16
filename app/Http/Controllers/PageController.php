@@ -41,7 +41,7 @@ class PageController extends Controller
 {
     $username = $request->query('username', Auth::user()->name);
     $month = $request->query('month');
-    $search = $request->query('search'); // Tambahkan parameter search
+    $search = $request->query('search'); 
 
     $totalUsers = User::where('role_id', 2)->count();
     $totalAssessments = Assessment::count();
@@ -260,7 +260,7 @@ class PageController extends Controller
     $user = User::findOrFail($id);
     $assessmentName = $request->query('assessment');
 
-    $sessions = UserAssessmentSession::with(['assessment', 'results', 'feedback']) // plural feedbacks
+    $sessions = UserAssessmentSession::with(['assessment', 'results', 'feedback']) 
         ->where('user_id', $id)
         ->whereNotNull('taken_at')
         ->when($assessmentName, function ($query) use ($assessmentName) {

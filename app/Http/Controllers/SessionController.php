@@ -13,17 +13,8 @@ class SessionController extends Controller
 {
     public function show(UserAssessmentSession $session)
 {
-    // Load relasi assessment dan hasil-hasilnya
     $session->load(['assessment', 'results']);
-
-    // Hitung total skor dari relasi results
     $score = $session->results->sum('score');
-
-    // Identifikasi jenis assessment
-    // $type = Str::lower($session->assessment->name);
-    // $suggestion = '';
-
-    // Buat interpretasi otomatis berdasarkan jenis dan skor
 
     if ('Minat Bakat') {
     if ($score < 50) {
@@ -55,8 +46,6 @@ class SessionController extends Controller
     }
 }
 
-
-    // Kirim data ke view
     return view('result', [
         'session' => $session,
         'score' => $score,
@@ -64,8 +53,6 @@ class SessionController extends Controller
         'date' => $session->taken_at
     ]);
 }
-
-
 
     public function storeFeedback(Request $request)
     {
@@ -81,8 +68,6 @@ class SessionController extends Controller
     public function showDetailWithChart($id)
     {
         $session = UserAssessmentSession::with(['user', 'results', 'feedback'])->findOrFail($id);
-
-        // Ambil semua sesi yang terkait user ini untuk grafik
         $monthlyScores = UserAssessmentSession::where('user_id', $session->user_id)
             ->whereNotNull('taken_at')
             ->with('results')
@@ -107,8 +92,5 @@ class SessionController extends Controller
             'monthlyScores' => $monthlyScores
         ]);
     }
-
-
-
 
 }

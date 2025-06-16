@@ -17,13 +17,11 @@ class Option extends Model
     
     public $timestamps = false;
     
-    // Relationship with Question
     public function question()
     {
         return $this->belongsTo(Question::class);
     }
-    
-    // Relationship with UserAnswers
+
     public function answers()
     {
         return $this->hasMany(UserAnswer::class);

@@ -3,24 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'Sistem Asesmen Gamifikasi')</title>
+    <title>@yield('title', 'Sistem Asesmen')</title>
 
-    <!-- Tailwind CSS via CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <!-- Chart.js for charts -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-    <!-- Alpine.js for interactivity -->
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
     @yield('styles')
 </head>
 <body class="min-h-screen w-full bg-gradient-to-br from-blue-300 via-purple-300 to-blue-400">
-    <!-- Navbar -->
     <x-navbar />
 
-    <!-- Main Content -->
     <main class="flex-grow container mx-auto px-4 py-8">
         @if(session('success'))
             <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-6" role="alert">
@@ -36,8 +31,6 @@
 
         @yield('content')
     </main>
-
-    <!-- Footer -->
     <x-footer />
 
     @yield('scripts')

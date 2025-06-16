@@ -21,13 +21,11 @@ class UserController extends Controller
             'answers.*' => 'required|exists:options,id',
         ]);
 
-        // Create a new assessment session
         $session = UserAssessmentSession::create([
             'user_id' => Auth::id(),
             'assessment_id' => $assessment->id,
         ]);
 
-        // Record user answers
         foreach ($validated['answers'] as $questionId => $optionId) {
             UserAnswer::create([
                 'session_id' => $session->id,
@@ -36,7 +34,6 @@ class UserController extends Controller
             ]);
         }
 
-        // Process and calculate results
         $this->calculateResults($session);
 
         return redirect()->route('user.progress')->with('success', 'Asesmen berhasil diselesaikan!');
@@ -60,11 +57,11 @@ class UserController extends Controller
             'interpretation' => $this->getInterpretation($totalScore, $session->assessment->name),
         ]);
 
-        MotivationFactor::create([
-            'session_id' => $session->id,
-            'factor_name' => 'Engagement',
-            'score' => min(100, $totalScore * 5),
-        ]);
+        // MotivationFactor::create([
+        //     'session_id' => $session->id,
+        //     'factor_name' => 'Engagement',
+        //     'score' => min(100, $totalScore * 5),
+        // ]);
     }
 
     private function getInterpretation($score, $assessmentName)
@@ -111,16 +108,13 @@ class UserController extends Controller
 
     public function index(Request $request)
 {
-    // Ambil parameter search dan month
     $search = $request->query('search');
     $selectedMonth = $request->query('month');
 
-    // Hitung total pengguna, asesmen, dan sesi selesai bulan ini
     $totalUsers = User::count();
     $totalAssessments = Assessment::count();
     $totalCompletedSessions = UserAssessmentSession::whereMonth('taken_at', now()->month)->count();
 
-    // Ambil daftar bulan yang tersedia
     $availableMonths = UserAssessmentSession::selectRaw('MONTH(taken_at) as month')
         ->distinct()
         ->pluck('month')
@@ -128,7 +122,6 @@ class UserController extends Controller
             return [$month => Carbon::create()->month($month)->locale('id')->isoFormat('MMMM')];
         });
 
-    // Query sesi asesmen terkini (filter bulan jika ada)
     $recentSessions = UserAssessmentSession::with('user', 'assessment')
         ->when($selectedMonth, function ($query) use ($selectedMonth) {
             $query->whereMonth('taken_at', $selectedMonth);
@@ -137,7 +130,6 @@ class UserController extends Controller
         ->take(10)
         ->get();
 
-    // Query pengguna + search filter
     $users = User::query()
         ->when($search, function ($query) use ($search) {
             $query->where('name', 'like', '%' . $search . '%');

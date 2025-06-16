@@ -38,7 +38,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('/register', [PageController::class, 'registerPage'])->name('register');
 Route::post('/register', [AuthController::class, 'register'])->name('register.post');
 
-// Admin routes
+
 Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::get('/dashboard', [PageController::class, 'adminDashboard'])->name('admin.dashboard');
     Route::get('/profile', [PageController::class, 'adminProfile'])->name('admin.profile');
@@ -65,7 +65,6 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::delete('/questions/{question}', [AssessmentController::class, 'destroyQuestion'])->name('admin.questions.destroy');
 });
 
-// User routes
 Route::middleware(['auth'])->group(function () {
     Route::get('/assessments', [PageController::class, 'userAssessments'])->name('user.assessments');
     Route::get('/assessments/{assessment}', [PageController::class, 'takeAssessment'])->name('user.assessments.take');

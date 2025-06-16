@@ -7,7 +7,6 @@
     <div class="max-w-5xl mx-auto bg-white rounded-xl shadow-md p-8">
         <h2 class="text-2xl font-semibold mb-4">📊 Progress Pengguna: {{ $user->name }}</h2>
 
-        <!-- Filter dropdown -->
         <form method="GET" action="{{ url()->current() }}" class="mb-6">
             <label for="assessment" class="block text-sm font-medium text-gray-700">Filter berdasarkan assessment:</label>
             <select name="assessment" id="assessment" onchange="this.form.submit()" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm">
@@ -17,13 +16,10 @@
                 @endforeach
             </select>
         </form>
-
-        <!-- Grafik -->
         <div class="mb-8">
             <canvas id="scoreChart"></canvas>
         </div>
 
-        <!-- Rata-rata Skor per Jenis Assessment -->
         <div class="mb-8">
             <h3 class="text-lg font-semibold mb-3">📌 Rata-rata Skor per Jenis Assessment</h3>
             @php
@@ -46,8 +42,6 @@
                 @endforeach
             </ul>
         </div>
-
-        <!-- Detail Hasil per Sesi -->
         <div class="mt-8">
             <h3 class="text-lg font-semibold mb-4">📄 Detail Hasil Assessment</h3>
             @forelse($sessions as $session)
@@ -99,8 +93,6 @@
 </div>
 
 
-
-<!-- ChartJS -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
     const ctx = document.getElementById('scoreChart').getContext('2d');

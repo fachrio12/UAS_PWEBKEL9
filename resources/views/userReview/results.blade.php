@@ -9,7 +9,6 @@
         <h1 style="margin: 0; font-size: 18px; font-weight: bold;">HASIL ASESMEN</h1>
         <p style="margin: 5px 0 0 0; font-size: 14px;">{{ $assessmentName }}</p>
 
-        {{-- tampilkan data per tanggal --}}
         @foreach ($results as $item)
             <p>{{ $item['date'] }} - Skor: {{ $item['score'] }}</p>
         @endforeach
@@ -53,7 +52,6 @@
 <div class="min-h-screen bg-gray-100 py-8">
     <div class="container mx-auto px-4">
         <div class="max-w-4xl mx-auto">
-            <!-- Header Success -->
             <div class="bg-white shadow-md rounded-lg p-6 mb-6 border-l-4 border-green-500">
                 <div class="flex items-center">
                     <div class="bg-green-100 rounded-full p-3 mr-4">
@@ -68,7 +66,6 @@
                 </div>
             </div>
 
-            <!-- Assessment Info -->
             <div class="bg-white shadow-md rounded-lg p-6 mb-6">
                 <div class="grid md:grid-cols-2 gap-6">
                     <div>
@@ -149,7 +146,7 @@
                     <div class="pt-4 border-t">
                         <p class="text-sm text-gray-600 mb-3">Bagikan hasil Anda:</p>
                         <div class="flex justify-center space-x-3">
-                            <button onclick="shareResult()"
+                            <!-- <button onclick="shareResult()"
                                     class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition-colors duration-200 text-sm">
                                 📱 Bagikan
                             </button>
@@ -157,7 +154,7 @@
                             <button onclick="printResult()"
                                     class="bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-600 transition-colors duration-200 text-sm">
                                 🖨️ Cetak
-                            </button>
+                            </button> -->
                         </div>
                     </div>
                 </div>
@@ -208,53 +205,49 @@
         }, 500);
     });
 
-    function shareResult() {
-        const shareData = {
-            title: 'Hasil Asesmen {{ $assessment->name }}',
-            text: 'Saya baru saja menyelesaikan asesmen {{ $assessment->name }} dengan skor {{ $results->first()->score ?? 0 }}!',
-            url: window.location.href
-        };
+//     function shareResult() {
+//         const shareData = {
+//             title: 'Hasil Asesmen {{ $assessment->name }}',
+//             text: 'Saya baru saja menyelesaikan asesmen {{ $assessment->name }} dengan skor {{ $results->first()->score ?? 0 }}!',
+//             url: window.location.href
+//         };
 
-        if (navigator.share && navigator.canShare(shareData)) {
-            navigator.share(shareData);
-        } else {
+//         if (navigator.share && navigator.canShare(shareData)) {
+//             navigator.share(shareData);
+//         } else {
 
-            const text = `Saya baru saja menyelesaikan asesmen {{ $assessment->name }} dengan skor {{ $results->first()->score ?? 0 }}! ${window.location.href}`;
+//             const text = `Saya baru saja menyelesaikan asesmen {{ $assessment->name }} dengan skor {{ $results->first()->score ?? 0 }}! ${window.location.href}`;
 
-            if (navigator.clipboard) {
-                navigator.clipboard.writeText(text).then(function() {
-                    alert('Link telah disalin ke clipboard!');
-                });
-            } else {
-                prompt('Salin link berikut:', text);
-            }
-        }
-    }
-
-
-    function printResult() {
-
-    const printArea = document.querySelector('.print-area');
-    const mainContent = document.querySelector('.min-h-screen');
-
-    printArea.style.display = 'block';
-    const originalDisplay = mainContent.style.display;
-    mainContent.style.display = 'none';
-
-    // Beri jeda agar browser sempat render sebelum mencetak
-    setTimeout(() => {
-        window.print();
-
-        // Kembalikan tampilan asli setelah mencetak
-        setTimeout(() => {
-            printArea.style.display = 'none';
-            mainContent.style.display = originalDisplay;
-        }, 500);
-    }, 200); // jeda 200ms
-}
+//             if (navigator.clipboard) {
+//                 navigator.clipboard.writeText(text).then(function() {
+//                     alert('Link telah disalin ke clipboard!');
+//                 });
+//             } else {
+//                 prompt('Salin link berikut:', text);
+//             }
+//         }
+//     }
 
 
-    // Animate progress bars on page load
+//     function printResult() {
+
+//     const printArea = document.querySelector('.print-area');
+//     const mainContent = document.querySelector('.min-h-screen');
+
+//     printArea.style.display = 'block';
+//     const originalDisplay = mainContent.style.display;
+//     mainContent.style.display = 'none';
+
+//     setTimeout(() => {
+//         window.print();
+
+//         setTimeout(() => {
+//             printArea.style.display = 'none';
+//             mainContent.style.display = originalDisplay;
+//         }, 500);
+//     }, 200); 
+// }
+
     document.addEventListener('DOMContentLoaded', function() {
         const progressBars = document.querySelectorAll('[style*="width:"]');
         progressBars.forEach(bar => {
@@ -266,7 +259,6 @@
         });
     });
 
-    // Smooth scroll to results
     document.addEventListener('DOMContentLoaded', function() {
         setTimeout(function() {
             const firstResult = document.querySelector('.bg-white.shadow-md.rounded-lg');

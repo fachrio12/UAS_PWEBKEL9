@@ -17,7 +17,6 @@ class MotivationFactor extends Model
     
     public $timestamps = false;
     
-    // Relationship with UserAssessmentSession
     public function session()
     {
         return $this->belongsTo(UserAssessmentSession::class, 'session_id');

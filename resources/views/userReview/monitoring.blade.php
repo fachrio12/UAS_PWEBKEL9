@@ -59,11 +59,8 @@
         </div>
     </div>
 </form>
-
-    {{-- Chart.js CDN --}}
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-    {{-- Script to render the chart --}}
     @if ($monthlyScores && count($monthlyScores) > 0)
     <div class="mt-10 bg-white p-6 rounded-xl shadow-inner border-l-4 border-indigo-400" style="height: 400px;">
         <h3 class="text-xl font-semibold text-indigo-700 mb-4 text-center">📈 Grafik Rata-Rata Skor per Bulan</h3>

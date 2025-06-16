@@ -39,30 +39,6 @@ class AssessmentController extends Controller
             ->with('success', 'Status asesmen berhasil diperbarui!');
     }
 
-
-    // public function destroy(Assessment $assessment)
-    // {
-    //     // Check if assessment has been used in sessions
-    //     $hasBeenUsed = $assessment->sessions()->exists();
-
-    //     if ($hasBeenUsed) {
-    //         return redirect()->route('admin.assessments')
-    //             ->with('error', 'Asesmen tidak dapat dihapus karena sudah digunakan oleh pengguna.');
-    //     }
-
-
-    //     foreach ($assessment->questions as $question) {
-    //         $question->options()->delete();
-    //     }
-    //     $assessment->questions()->delete();
-
-    //     // Delete the assessment
-    //     $assessment->delete();
-
-    //     return redirect()->route('admin.assessments')
-    //         ->with('success', 'Asesmen berhasil dihapus!');
-    // }
-
     public function storeQuestion(Request $request)
     {
         $validated = $request->validate([
@@ -118,8 +94,6 @@ class AssessmentController extends Controller
 
     return redirect()->route('admin.dashboard')->with('success', 'Semua pertanyaan berhasil ditambahkan!');
 }
-
-
 
     public function updateQuestion(Request $request, Question $question)
     {

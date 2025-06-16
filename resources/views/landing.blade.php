@@ -33,9 +33,6 @@
         </div>
     </section>
 </div>
-
-
-
     <section id="tentang" class="py-16 bg-white rounded-xl mx-4 mt-8 shadow-md">
         <div class="container mx-auto px-4">
             <div class="text-center mb-12">
